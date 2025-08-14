@@ -1,6 +1,6 @@
 {
   "name": "messenger/app",
-  "description": "Messenger Application",
+  "description": "Messenger Application (DEMO)",
   "type": "project",
   "require": {
     "php": ">=7.4",

@@ -1,0 +1,28 @@
+{
+  "name": "messenger/app",
+  "description": "Messenger Application",
+  "type": "project",
+  "require": {
+    "php": ">=7.4",
+    "cboden/ratchet": "^0.4.4",
+    "slim/slim": "^4.0",
+    "slim/psr7": "^1.0",
+    "firebase/php-jwt": "^6.0",
+    "respect/validation": "^2.0",
+    "doctrine/orm": "^2.14",
+    "doctrine/dbal": "^3.0",
+    "doctrine/migrations": "^3.0",
+    "vlucas/phpdotenv": "^5.0",
+    "monolog/monolog": "^3.0",
+    "symfony/cache": "^6.4"
+  },
+  "autoload": {
+    "psr-4": {
+      "Messenger\\": "src/"
+    }
+  },
+  "scripts": {
+    "start": "php -S 0.0.0.0:8080 -t public",
+    "websocket": "php bin/websocket-server.php"
+  }
+}

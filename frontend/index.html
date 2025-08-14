@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord RE</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Discord RE</h2>
+                <p>Connect with friends and communities</p>
+            </div>
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">Login</button>
+                    <button class="tab-btn" data-tab="register">Register</button>
+                </div>
+                
+                <form id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label for="loginUsername">Username</label>
+                        <input type="text" id="loginUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="registerUsername">Username</label>
+                        <input type="text" id="registerUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" id="registerPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="app" class="app hidden">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <i class="fas fa-comments"></i>
+                    <span>Discord RE</span>
+                </div>
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <span id="currentUsername" class="username">User</span>
+                        <span class="status online">Online</span>
+                    </div>
+                    <button id="logoutBtn" class="logout-btn" title="Logout">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="sidebar-content">
+                <div class="section">
+                    <div class="section-header">
+                        <h3>Channels</h3>
+                        <button id="createChannelBtn" class="add-btn" title="Create Channel">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div id="channelsList" class="channels-list"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>Direct Messages</h3>
+                        <button id="startDMBtn" class="add-btn" title="Start Direct Message">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                    <div id="dmList" class="dm-list"></div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="chat-header">
+                <div class="chat-info">
+                    <div class="chat-avatar">
+                        <i class="fas fa-hashtag"></i>
+                    </div>
+                    <div class="chat-details">
+                        <h2 id="chatTitle">Select a channel or start a conversation</h2>
+                        <p id="chatDescription">Choose from the sidebar to begin messaging</p>
+                    </div>
+                </div>
+                <div class="chat-actions">
+                    <button id="joinChannelBtn" class="btn btn-secondary hidden">Join Channel</button>
+                    <button id="leaveChannelBtn" class="btn btn-danger hidden">Leave Channel</button>
+                </div>
+            </div>
+
+            <div id="messagesContainer" class="messages-container">
+                <div class="welcome-message">
+                    <i class="fas fa-comments"></i>
+                    <h3>Welcome to Discord RE</h3>
+                    <p>Select a channel or start a direct message to begin chatting</p>
+                </div>
+            </div>
+
+            <div id="messageInput" class="message-input hidden">
+                <div class="input-container">
+                    <button class="emoji-btn" title="Add emoji">
+                        <i class="fas fa-smile"></i>
+                    </button>
+                    <input type="text" id="messageText" placeholder="Type a message..." maxlength="2000">
+                    <button id="sendBtn" class="send-btn" title="Send message">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="createChannelModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Channel</h2>
+                <button class="close-btn" data-modal="createChannelModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="createChannelForm">
+                    <div class="form-group">
+                        <label for="channelName">Channel Name</label>
+                        <input type="text" id="channelName" required placeholder="e.g., general, random">
+                    </div>
+                    <div class="form-group">
+                        <label for="channelDescription">Description (optional)</label>
+                        <textarea id="channelDescription" placeholder="What's this channel about?"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="channelPrivate">
+                            <span class="checkmark"></span>
+                            Private Channel
+                        </label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" data-modal="createChannelModal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Create Channel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="notifications" class="notifications"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
